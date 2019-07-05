@@ -6,7 +6,6 @@ class App extends Component{
   constructor() {
     super();
     this.state = {
-      error: '',
       url: '',
     }
 
@@ -15,15 +14,13 @@ class App extends Component{
   }
 
   handleChange(event) {
-    console.log(event.target.value)
     this.setState({url: event.target.value})
   }
   handleSubmit(event) {
-    alert("event has been submitted" + this.state.url)
     axios
-      .post("/recognition", this.state.url)
+      .post("/url_checker", this.state.url)
       .then(res => {
-        console.log(res)
+        alert(res.data)
       })
     event.preventDefault();
   };
@@ -32,12 +29,11 @@ class App extends Component{
       <div className="App">
         <header className="App-header">
           <form onSubmit={this.handleSubmit}>
-
             <label>
-                image url:
+                url:
                 <input type="text" name="url" value={this.state.url} onChange={this.handleChange} />
             </label>
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Check URL" />
           </form>
         </header>
       </div>
